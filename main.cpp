@@ -12,6 +12,9 @@ int main() {
         cout<<"3. Display all blocks\n";
         cout<<"4. Change Difficulty of Blockchain\n";
         cout<<"5. Display Graph\n";
+        cout<<"6. Display Importance of Users\n";
+        cout<<"7. Find how strongly 2 nodes are connected\n";
+        cout<<"8. Find strongly connected users\n";
         cout<<"9. Exit\n";
         cout <<"-------------------------------\n";
         cin>> choice;
@@ -27,6 +30,12 @@ int main() {
             case 4 : changeDiff();
                      break;
             case 5 : displayGraph();
+                     break;
+            case 6 : findInOutDegree();
+                     break;
+            case 7 : connections();
+                     break;
+            case 8 : scc();
                      break;
             case 9 : return 0;
         }     
