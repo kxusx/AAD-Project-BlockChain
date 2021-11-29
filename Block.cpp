@@ -2,20 +2,13 @@
 using namespace std;
 // here we implement the functionality of the class Block
 // --------------------------------------------------------------------------------
-Block::Block(uint32_t nIndexIn1)
+Block::Block(uint32_t nIndexIn1, int from,int to,int amount)
 {
     // initalizing the values of the block
     nIndex = (nIndexIn1);
-    string from, to;
-    int amount;
+    
     if (nIndexIn1 != 0)
     {
-        cout << "From:";
-        cin >> from;
-        cout << "To:";
-        cin >> to;
-        cout << "Amount:";
-        cin >> amount;
         blockData.from = from;
         blockData.to = to;
         blockData.amount = amount;

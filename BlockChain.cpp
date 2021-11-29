@@ -3,7 +3,7 @@
 using namespace std;
 
 Blockchain::Blockchain(int difficulty) {
-    vChain.emplace_back(Block(0));
+    vChain.emplace_back(Block(0,0,0,0));
     nDifficulty = difficulty;
 }
 
@@ -16,6 +16,12 @@ void Blockchain::AddBlock(Block bNew) {
     bNew.sPrevHash = GetLastBlock().GetHash();  // setting prevHash to the hash of the previous block
     bNew.MineBlock(nDifficulty);                // mining
     vChain.push_back(bNew);
+}
+
+void Blockchain::changeDifficulty(int newDifficulty){
+    cout<<"Old Difficulty Level : "<<nDifficulty;
+    nDifficulty = newDifficulty;
+    cout<<" -> New Difficulty Level : "<<nDifficulty<<"\n";
 }
 
 
