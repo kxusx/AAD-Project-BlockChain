@@ -14,7 +14,7 @@ int main() {
         cout<<"5. Display Graph\n";
         cout<<"6. Display Importance of Users\n";
         cout<<"7. Find how strongly 2 nodes are connected\n";
-        cout<<"8. Find strongly connected users\n";
+        cout<<"8. Find strongly connected groups of users\n";
         cout<<"9. Exit\n";
         cout <<"-------------------------------\n";
         cin>> choice;

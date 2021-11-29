@@ -8,6 +8,7 @@
 #include "sha256.h"
 #include <vector>
 #include <list>
+#include <stack>
 using namespace std;
 
 //---------------------------------------------------------------------------
@@ -220,11 +221,7 @@ public:
         return path_count;
     }
 
-    /*
- * A recursive function that counts all paths from src to
- * dst. Keep track of the count in the parameter.
- */
-    void path_counter(int src, int dst, int &path_count,vector<bool> &visited)
+    void path_counter(int src, int dst, int &path_count, vector<bool> &visited)
     {
         visited[src] = true;
         if (src == dst)
@@ -237,35 +234,110 @@ public:
             {
                 int v = it1->first;
                 if (!visited[v])
-                    path_counter(v, dst, path_count,visited);
+                    path_counter(v, dst, path_count, visited);
             }
         }
         visited[src] = false;
     }
+
+    void DFS(int s, bool visitedV[])
+    {
+        visitedV[s] = true;
+        cout << s << " ";
+
+        for (auto it1 = adj[s].begin(); it1 != adj[s].end(); it1++)
+        {
+            int v = it1->first;
+            if (!visitedV[v])
+                DFS(v, visitedV);
+        }
+    }
+
+    Graph transpose()
+    {
+        Graph g;
+        for (auto it = fromList.begin(); it != fromList.end(); it++)
+        {
+            int from = *it;
+            for (auto it1 = adj[from].begin(); it1 != adj[from].end(); it1++)
+            {
+                int to = it1->first;
+                int amt = it1->second;
+                g.adj[to].push_back(make_pair(from, amt));
+            }
+        }
+        return g;
+    }
+
+    void fillOrder(int s, bool visitedV[], stack<int> &Stack)
+    {
+        visitedV[s] = true;
+
+        for (auto it1 = adj[s].begin(); it1 != adj[s].end(); it1++)
+        {
+            int f = it1->first;
+            if (!visitedV[f])
+                fillOrder(f, visitedV, Stack);
+        }
+
+        Stack.push(s);
+    }
+
+    void printSCC()
+    {
+        stack<int> Stack;
+        int size=1000;
+        bool *visitedV = new bool[size];
+
+        for (int i = 0; i < size; i++)
+            visitedV[i] = false;
+
+        for (auto it = fromList.begin(); it != fromList.end(); it++)
+        {
+            int from = *it;
+            if (visitedV[from] == false)
+                fillOrder(from, visitedV, Stack);
+        }
+
+        Graph gr = transpose();
+
+        for (int i = 0; i < size; i++)
+            visitedV[i] = false;
+
+        while (Stack.empty() == false)
+        {
+            int s = Stack.top();
+            Stack.pop();
+
+            if (visitedV[s] == false)
+            {
+                gr.DFS(s, visitedV);
+                cout << endl;
+            }
+        }
+    }
 };
 
-static Graph G;
+    //---------------------------------------------------------------------------
 
-// Print the graph
+    // Blockchain object declared with difficulty 1
+    static Blockchain bChain = Blockchain(1);
+    extern int id;
+    // Declaring Graph G
+    static Graph G;
 
-//---------------------------------------------------------------------------
+    //---------------------------------------------------------------------------
 
-// Blockchain object declared with difficulty 1
-static Blockchain bChain = Blockchain(1);
-extern int id;
+    void blockInsertion();
+    void displayLastBlock();
+    void displayAllBlocks();
+    void changeDiff();
+    void graphConverter();
+    void displayGraph();
+    void findInOutDegree();
+    void connections();
+    void scc();
 
-//---------------------------------------------------------------------------
-
-void blockInsertion();
-void displayLastBlock();
-void displayAllBlocks();
-void changeDiff();
-void graphConverter();
-void displayGraph();
-void findInOutDegree();
-void connections();
-void scc();
-
-//---------------------------------------------------------------------------
+    //---------------------------------------------------------------------------
 
 #endif

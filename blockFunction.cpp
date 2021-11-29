@@ -119,5 +119,5 @@ void connections()
 }
 
 void scc(){
-    
+    G.printSCC();
 }
