@@ -1,4 +1,4 @@
-# AAD-Project-BlockChain
+# BlockChain meets Graph Algos
 
 I have implemented a rudimentary blockchain where :
 each block contains data on who sent, who received, amount sent.
